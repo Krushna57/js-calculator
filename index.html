@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <title>Claculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body onload="calculator()">
+    <form name="calForm">
+        <div class="container">
+            <div class="box1">
+                <!-- header section -->
+                <div class="label">
+                    <ol>
+                        <li id="calculator_label" onclick="calculator()">Calculator</li>
+                        <li id="exchange_label" onclick="exchange_rate()">Excahnge Rate</li>
+                        <li id="unit_label" onclick="unit_converter()">Unit Converter</li>
+                        <li onclick="showHistory()"><img src="history-solid.svg" alt="not supported" class="show-history-img" height="17" title="History"></li>
+                    </ol>
+                </div>
+                <!-- calculator screen section -->
+                <section id="calculator-section">
+                    <input type="text" id="expressionField" placeholder="0" readonly>
+                    <input type="text" id="resultField" placeholder="" readonly>
+                </section>
+
+                <!-- echange rate section -->
+                <section id="exchange-rate-section">
+                    <select name="firstOptionList" id="first" onchange="exchangeCurrency()">
+                        <option value="1">US dollar USD
+                        <option value="2">Euro EUR
+                        <option value="3">Pound GBP
+                        <option value="4" selected>Rupies INR</option>
+                    </select>
+                    <input type="text" name="exchangeField1" id="exchangeField1"placeholder="0.00" readonly>
+                
+                    <select name="secondOptionList" id="second" onchange="exchangeCurrency()">
+                        <option value="1" selected>US dollar USD
+                        <option value="2">Euro EUR
+                        <option value="3">Pound GBP
+                        <option value="4">Rupies INR
+                    </select>
+                    <input type="text" name="exchangeField2" id="exchangeField2" placeholder="0.00" readonly>
+    
+                </section>
+                <!-- unit converter - length section -->
+                <section id="length-page-section" onchange="lengthConverter()">
+                    <select name="lenthOptionList1" id="lenthOptionList1">
+                        <option value="1">Millimeter (mm)</option>
+                        <option value="2">Kilometer (km)</option>
+                        <option value="3">Centimeter (cm)</option>
+                        <option value="4">Meter (m)</option>
+                    </select>
+                    <input type="text" name="lengthField1" id="lengthField1" placeholder="0" readonly>
+    
+                    <select name="lenthOptionList2" id="lenthOptionList2" onchange="lengthConverter()">
+                        <option value="1">Millimeter (mm)</option>
+                        <option value="2">Kilometer (km)</option>
+                        <option value="3">Centimeter (cm)</option>
+                        <option value="4" selected>Meter (m)</option>
+                    </select>
+                    <input type="text" name="lengthField2" id="lengthField2" placeholder="0" readonly>    
+                </section>
+                 <!-- unit converter - volume section -->
+                 <section id="volume-page-section">
+                    <select name="volumeOptionList1" id="volumeOptionList1" onchange="volumeConverter()">
+                        <option value="1">Deciliter (dl)</option>
+                        <option value="2">Centileter (cl)</option>
+                        <option value="3">Liter (l)</option>
+                        <option value="4">Milliliter (ml)</option>
+                    </select>
+                    <input type="text" name="volumeField1" id="volumeField1" placeholder="0" readonly>
+    
+                    <select name="volumeOptionList2" id="volumeOptionList2" onchange="volumeConverter()">
+                        <option value="1">Deciliter (dl)</option>
+                        <option value="2">Centileter (cl)</option>
+                        <option value="3">Liter (l)</option>
+                        <option value="4" selected>Milliliter (ml)</option>
+                    </select>
+                    <input type="text" name="volumeField2" id="volumeField2" placeholder="0" readonly>    
+                </section>
+
+                <!-- unit converter - data conversion section -->
+                <section id="data-conversion-section">
+                    <select name="dataOptionList1" id="dataOptionList1" onchange="dataConverter()">
+                        <option value="1">Byte B</option>
+                        <option value="2">Kilobyte KB</option>
+                        <option value="3">Megabyte MB</option>
+                        <option value="4">Gigabyte GB</option>
+                        <option value="5">Terabyte TB</option>
+                        <option value="6">Petabyte PB</option>
+                    </select>
+                    <input type="text" name="dataField1" id="dataField1" placeholder="0" readonly>
+    
+                    <select name="dataOptionList2" id="dataOptionList2" onchange="dataConverter()">
+                        <option value="1">Byte B</option>
+                        <option value="2">Kilobyte KB</option>
+                        <option value="3">Megabyte MB</option>
+                        <option value="4">Gigabyte GB</option>
+                        <option value="5">Terabyte TB</option>
+                        <option value="6">Petabyte PB</option>
+                    </select>
+                    <input type="text" name="dataField2" id="dataField2" placeholder="0" readonly>    
+                </section>
+            </div> 
+            <div class="box2" id="number_box">
+                <table>
+                    <tr>
+                        <td><button type="reset" class="mt" title="Clear All">C</button></td>
+                        <td><button type="button" value="%" class="mt" onclick="displayKey(this.value)">%</button></td>
+                        <td><button type="button" onclick="backBtn()" class="mt"><</button></td>
+                        <td><button type="button" value="/" onclick="displayKey(this.value)" class="mt">/</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" value="7" onclick="displayKey(this.value)">7</button></td>
+                        <td><button type="button" value="8" onclick="displayKey(this.value)">8</button></td>
+                        <td><button type="button" value="9" onclick="displayKey(this.value)">9</button></td>
+                        <td><button type="button" value="*" onclick="displayKey(this.value)" class="mt">x</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" value="4" onclick="displayKey(this.value)">4</button></td>
+                        <td><button type="button" value="5" onclick="displayKey(this.value)">5</button></td>
+                        <td><button type="button" value="6" onclick="displayKey(this.value)">6</button></td>
+                        <td><button type="button" value="-" onclick="displayKey(this.value)" class="mt">-</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" value="1" onclick="displayKey(this.value)">1</button></td>
+                        <td><button type="button" value="2" onclick="displayKey(this.value)">2</button></td>
+                        <td><button type="button" value="3" onclick="displayKey(this.value)">3</button></td>
+                        <td><button type="button" value="+" onclick="displayKey(this.value)" class="mt">+</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" value="00" onclick="displayKey(this.value)">00</button></td>
+                        <td><button type="button" value="0" onclick="displayKey(this.value)">0</button></td>
+                        <td><button type="button" value="." onclick="displayKey(this.value)" class="mt">.</button></td>
+                        <td><button type="button" value="=" onclick="displayRes()" class="mt" title="Result">=</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="exchange_box" id="exchange_box">
+                <table>
+                    <tr>
+                        <td><button type="button" value="7" onclick="keyPad(this.value)">7</button></td>
+                        <td><button type="button" value="8" onclick="keyPad(this.value)">8</button></td>
+                        <td><button type="button" value="9" onclick="keyPad(this.value)">9</button></td>
+                        <td><button type="reset" class="mt" title="Clear All">C</button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" value="4" onclick="keyPad(this.value)">4</button></td>
+                        <td><button type="button" value="5" onclick="keyPad(this.value)">5</button></td>
+                        <td><button type="button" value="6" onclick="keyPad(this.value)">6</button></td>
+                        <td><button type="button" onclick="keyPad(this.value)" class="mt"></button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" value="1" onclick="keyPad(this.value)">1</button></td>
+                        <td><button type="button" value="2" onclick="keyPad(this.value)">2</button></td>
+                        <td><button type="button" value="3" onclick="keyPad(this.value)">3</button></td>
+                        <td><button type="button" class="mt"></button></td>
+                    </tr>
+                    <tr>
+                        <td><button type="button" value="00" onclick="keyPad(this.value)">00</button></td>
+                        <td><button type="button" value="0" onclick="keyPad(this.value)">0</button></td>
+                        <td><button type="button" value="." onclick="keyPad(this.value)" class="mt">.</button></td>
+                        <td><button type="button" onclick="backBtn()" class="mt"><</button></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="unit_box" id="unit_box">
+                <Button type="button" onclick="lengthPage()">Length</Button>
+                <Button type="button" onclick="volumePage()">Volume</Button>
+                <Button type="button" onclick="dataConversionPage()">Data conversion</Button>
+                <!-- <Button>Weight</Button>
+                <Button>Temperature</Button>
+                <Button>Power</Button> -->
+            </div>
+
+            <div class="historyContainer" id="historyContainer">
+                <header style="position: fixed; height: 33px; width: 100%; background: rgba(102, 141, 143, 0.219); line-height: 30px; font-family: verdana; font-size: 15px;">
+                    <center><font color="gray">Calculation History</font> </center> <img src="trash-alt-solid.svg" class="delete-history-img" title="Delete History" alt="" height="17" onclick="deleteHistory()">
+                </header>
+                <p id="writeHistory"></p>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
